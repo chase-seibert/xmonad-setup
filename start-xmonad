@@ -10,19 +10,17 @@
 # GENERAL INITIALIZATION
 #
 
-# Identify the home of our gtkrc file, important for setting styles of 
-# gtk-based applications
-export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-
 # Load X resources (fixes some font issues)
 xrdb -merge .Xresources
+
+# Load custom keymap
+xmodmap ~/.xmodmaprc
 
 # Start compositing to support transparency. You can omit this
 # if you prefer not to use any transparency, but it is likely to cause
 # ugly black fringing with some programs such as synapse that expect
 # transparency support.
-xcompmgr -n &
-
+# xcompmgr -n &
 
 #
 # SCREEN CONFIGURATION
@@ -37,23 +35,22 @@ xcompmgr -n &
 # connected screens and find out what names you should use to refer to them.
 
 # Activate primary screen 
-xrandr --output LVDS-1 --auto --primary
+# xrandr --output LVDS-1 --auto --primary
 
 # If we find that a screen is connected via VGA, activate it and position it
 # to the left of the primary screen.
-xrandr | grep 'VGA-1 connected' | ifne xrandr --output VGA-1 --auto --left-of LVDS-1
+# xrandr | grep 'VGA-1 connected' | ifne xrandr --output VGA-1 --auto --left-of LVDS-1
 
 # If we find that a screen is connected via DVI, activate it and position it
 # to the left of the primary screen.
-xrandr | grep 'DP-1 connected' | ifne xrandr --output DP-1 --auto --left-of LVDS-1
+# xrandr | grep 'DP-1 connected' | ifne xrandr --output DP-1 --auto --left-of LVDS-1
 
 
 #
 # LOAD SCREEN BACKGROUNDS
 #
 
-# To set your backgrounds, run nitrogren /path/to/images
-nitrogen --restore &
+feh --no-fehbg --bg-tile ~/Pictures/linen.png
 
 
 #
@@ -86,7 +83,7 @@ stalonetray \
   --max-geometry 5x1-0+0 \
   --background '#000000' \
   --skip-taskbar \
-  --icon-size 24 \
+  --icon-size 25 \
   --kludges force_icons_size \
   --window-strut none \
 &
