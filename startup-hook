@@ -27,6 +27,21 @@ if [ -z "$(pgrep system-config-printer-applet)" ] ; then
     system-config-printer-applet &
 fi
 
+# Volume control applet
+if [ -z "$(pgrep volti)" ] ; then
+    volti &
+fi
+
+# Clipboard manager
+if [ -z "$(pgrep parcellite)" ] ; then
+    parcellite &
+fi
+
+# Dropbox
+if [ -f "/home/akshay/.dropbox-dist/dropboxd" ] ; then
+    /home/akshay/.dropbox-dist/dropboxd &
+fi
+
 #
 # APPLICATION LAUNCHER
 #

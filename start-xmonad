@@ -50,8 +50,7 @@ xmodmap ~/.xmodmaprc
 # LOAD SCREEN BACKGROUNDS
 #
 
-feh --no-fehbg --bg-tile ~/Pictures/linen.png
-
+feh --no-fehbg --bg-tile ~/.xmonad/images/linen.png
 
 #
 # STARTUP ICON TRAY
@@ -83,7 +82,7 @@ stalonetray \
   --max-geometry 5x1-0+0 \
   --background '#000000' \
   --skip-taskbar \
-  --icon-size 25 \
+  --icon-size 21 \
   --kludges force_icons_size \
   --window-strut none \
 &
@@ -96,4 +95,3 @@ gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh
 
 # Now, finally, start xmonad
 exec xmonad
-

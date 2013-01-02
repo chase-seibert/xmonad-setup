@@ -18,7 +18,7 @@
 # Author: David Brewer
 
 echo "Installing required packages..."
-sudo apt-get install xmonad libghc-xmonad-dev libghc-xmonad-contrib-dev xmobar feh stalonetray moreutils ssh-askpass-gnome 
+sudo apt-get install xmonad libghc-xmonad-dev libghc-xmonad-contrib-dev xmobar feh stalonetray moreutils ssh-askpass-gnome suckless-tools
 
 echo "Creating xmonad xsession configuration..."
 sudo mv /usr/share/xsessions/xmonad.desktop /usr/share/xsessions/xmonad.desktop.original

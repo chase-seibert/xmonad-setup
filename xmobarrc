@@ -13,7 +13,7 @@
 Config { 
   -- Set font and default foreground/background colors. Note that
   -- the height of xmobar is controlled by the font you use.
-  font = "xft:Calluna Sans-12",
+  font = "xft:Ubuntu-11",
   bgColor = "black",
   fgColor = "grey",
 
@@ -42,11 +42,6 @@ Config {
     -- Date formatting
     Run Date "%a %b %_d %l:%M" "date" 10,
 
-    -- To get volume information, we run a custom bash script.
-    -- This is because the built-in volume support in xmobar is disabled
-    -- in Debian and derivatives like Ubuntu. 
-    Run Com "~/.xmonad/get-volume" [] "myvolume" 10,
-    
     -- This line tells xmobar to read input from stdin. That's how we
     -- get the information that xmonad is sending it for display.
     Run StdinReader
@@ -61,5 +56,5 @@ Config {
 
    -- Overall template for the layout of the xmobar contents. Note that
    -- space is significant and can be used to add padding.
-   template = "%StdinReader% }{ %cpu% | %memory% | Vol: %myvolume%    <fc=#e6744c>%date%</fc>     "
+   template = "%StdinReader% }{ %cpu%   %memory%   <fc=#e6744c>%date%</fc>           "
 }

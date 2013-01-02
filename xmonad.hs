@@ -29,6 +29,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.Fullscreen
 import XMonad.Util.EZConfig
+import XMonad.Util.Paste
 import XMonad.Util.Run
 
 import qualified XMonad.StackSet as W
@@ -188,14 +189,14 @@ myLayouts =
 myKeyBindings =
   [
     ("M-b", sendMessage ToggleStruts)
-    , ("M-l>", spawn "slock")
+    , ("M-l", spawn "slock")
     , ("M-u", focusUrgent)
     , ("M-<F3>", goToSelected defaultGSConfig)
-    , ("M-<F8>", spawn "amixer -q set Master toggle")
-    , ("M-<F9>", spawn "amixer -q set Master 10%-")
-    , ("M-<F10>", spawn "amixer -q set Master 10%+")
+    , ("M-<F8>", spawn "volti-remote -m")
+    , ("M-<F9>", spawn "volti-remote -d")
+    , ("M-<F10>", spawn "volti-remote -i")
     , ("M-<F11>", spawn "scrot")
-    , ("C-<Space>", spawn "exe=`dmenu_path | dmenu -fn '-*-*-*-*-*-*-20-140-*-*-*-100-iso8859-*'` && exec $exe")
+    , ("C-<Space>", spawn "exe=`dmenu_path | dmenu -fn '-misc-fixed-bold-r-normal-*-18-*-*-*-*-*-*-*'` && exec $exe")
   ]
 
 
