@@ -42,6 +42,8 @@ if [ -f "/home/akshay/.dropbox-dist/dropboxd" ] ; then
     /home/akshay/.dropbox-dist/dropboxd &
 fi
 
+xautolocker -time 10 -locker slock &
+
 #
 # APPLICATION LAUNCHER
 #
