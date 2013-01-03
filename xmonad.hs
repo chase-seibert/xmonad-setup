@@ -45,6 +45,7 @@ myNormalBorderColor  = "#cccccc"      -- color of inactive border
 myBorderWidth        = 1              -- width of border around windows
 myTerminal           = "gnome-terminal"   -- which terminal software to use
 myIMRosterTitle      = "Contact List" -- title of roster on IM workspace
+myLayouts            = defaultLayouts
 
 
 {-
@@ -64,42 +65,8 @@ myVisibleWSRight = ")"
 myUrgentWSLeft  = "{"         -- wrap urgent workspace with these
 myUrgentWSRight = "}"
 
-
-{-
-  Workspace configuration. Here you can change the names of your
-  workspaces. Note that they are organized in a grid corresponding
-  to the layout of the number pad.
-
-  I would recommend sticking with relatively brief workspace names
-  because they are displayed in the xmobar status bar, where space
-  can get tight. Also, the workspace labels are referred to elsewhere
-  in the configuration file, so when you change a label you will have
-  to find places which refer to it and make a change there as well.
-
-  This central organizational concept of this configuration is that
-  the workspaces correspond to keys on the number pad, and that they
-  are organized in a grid which also matches the layout of the number pad.
-  So, I don't recommend changing the number of workspaces unless you are
-  prepared to delve into the workspace navigation keybindings section
-  as well.
--}
-
-myWorkspaces = ["1:Web",  "2:Dev", "3:Chat", "4:SQL",  "5", "6", "7",  "8", "9", "0"]
-
+myWorkspaces = ["1:Web",  "2:Dev", "3:Prod", "4",  "5", "6", "7",  "8", "9", "0"]
 startupWorkspace = "2:Dev"  -- which workspace do you want to be on after launch?
-
-{-
-  Layout configuration. In this section we identify which xmonad
-  layouts we want to use. I have defined a list of default
-  layouts which are applied on every workspace, as well as
-  special layouts which get applied to specific workspaces.
-
-  Note that all layouts are wrapped within "avoidStruts". What this does
-  is make the layouts avoid the status bar area at the top of the screen.
-  Without this, they would overlap the bar. You can toggle this behavior
-  by hitting "super-b" (bound to ToggleStruts in the keyboard bindings
-  in the next section).
--}
 
 -- Define group of default layouts used on most screens, in the
 -- order they will appear.
@@ -108,83 +75,11 @@ startupWorkspace = "2:Dev"  -- which workspace do you want to be on after launch
 -- "avoidStruts" modifier makes it so that the layout provides
 -- space for the status bar at the top of the screen.
 defaultLayouts = smartBorders(avoidStruts(
-  -- ResizableTall layout has a large master window on the left,
-  -- and remaining windows tile on the right. By default each area
-  -- takes up half the screen, but you can resize using "super-h" and
-  -- "super-l".
   ResizableTall 1 (3/100) (1/2) []
-
-  -- Mirrored variation of ResizableTall. In this layout, the large
-  -- master window is at the top, and remaining windows tile at the
-  -- bottom of the screen. Can be resized as described above.
   ||| Mirror (ResizableTall 1 (3/100) (1/2) [])
-
-  -- Full layout makes every window full screen. When you toggle the
-  -- active window, it will bring the active window to the front.
   ||| noBorders Full
-
-  -- Grid layout tries to equally distribute windows in the available
-  -- space, increasing the number of columns and rows as necessary.
-  -- Master window is at top left.
   ||| Grid
-
-  -- ThreeColMid layout puts the large master window in the center
-  -- of the screen. As configured below, by default it takes of 3/4 of
-  -- the available space. Remaining windows tile to both the left and
-  -- right of the master window. You can resize using "super-h" and
-  -- "super-l".
   ||| ThreeColMid 1 (3/100) (3/4)))
-
-
--- Here we define some layouts which will be assigned to specific
--- workspaces based on the functionality of that workspace.
-
--- The chat layout uses the "IM" layout. We have a roster which takes
--- up 1/8 of the screen vertically, and the remaining space contains
--- chat windows which are tiled using the grid layout. The roster is
--- identified using the myIMRosterTitle variable, and by default is
--- configured for Empathy, so if you're using something else you
--- will want to modify that variable.
-chatLayout = avoidStruts(withIM (1%7) (Title myIMRosterTitle) Grid)
-
--- The GIMP layout uses the ThreeColMid layout. The traditional GIMP
--- floating panels approach is a bit of a challenge to handle with xmonad;
--- I find the best solution is to make the image you are working on the
--- master area, and then use this ThreeColMid layout to make the panels
--- tile to the left and right of the image. If you use GIMP 2.8, you
--- can use single-window mode and avoid this issue.
--- gimpLayout = smartBorders(avoidStruts(ThreeColMid 1 (3/100) (3/4)))
-
--- Here we combine our default layouts with our specific, workspace-locked
--- layouts.
-myLayouts =
-  onWorkspace "3:Chat" chatLayout
-  $ defaultLayouts
-
-
-{-
-  Custom keybindings. In this section we define a list of relatively
-  straightforward keybindings. This would be the clearest place to
-  add your own keybindings, or change the keys we have defined
-  for certain functions.
-
-  It can be difficult to find a good list of keycodes for use
-  in xmonad. I have found this page useful -- just look
-  for entries beginning with "xK":
-
-  http://xmonad.org/xmonad-docs/xmonad/doc-index-X.html
-
-  Note that in the example below, the last three entries refer
-  to nonstandard keys which do not have names assigned by
-  xmonad. That's because they are the volume and mute keys
-  on my laptop, a Lenovo W520.
-
-  If you have special keys on your keyboard which you
-  want to bind to specific actions, you can use the "xev"
-  command-line tool to determine the code for a specific key.
-  Launch the command, then type the key in question and watch
-  the output.
--}
 
 myKeyBindings =
   [
@@ -198,74 +93,13 @@ myKeyBindings =
     , ("M-<F11>", spawn "scrot")
     , ("C-<Space>", spawn "exe=`dmenu_path | dmenu -fn '-misc-fixed-bold-r-normal-*-18-*-*-*-*-*-*-*'` && exec $exe")
   ]
-
-
-{-
-  Management hooks. You can use management hooks to enforce certain
-  behaviors when specific programs or windows are launched. This is
-  useful if you want certain windows to not be managed by xmonad,
-  or sent to a specific workspace, or otherwise handled in a special
-  way.
-
-  Each entry within the list of hooks defines a way to identify a
-  window (before the arrow), and then how that window should be treated
-  (after the arrow).
-
-  To figure out to identify your window, you will need to use a
-  command-line tool called "xprop". When you run xprop, your cursor
-  will temporarily change to crosshairs; click on the window you
-  want to identify. In the output that is printed in your terminal,
-  look for a couple of things:
-    - WM_CLASS(STRING): values in this list of strings can be compared
-      to "className" to match windows.
-    - WM_NAME(STRING): this value can be compared to "resource" to match
-      windows.
-
-  The className values tend to be generic, and might match any window or
-  dialog owned by a particular program. The resource values tend to be
-  more specific, and will be different for every dialog. Sometimes you
-  might want to compare both className and resource, to make sure you
-  are matching only a particular window which belongs to a specific
-  program.
-
-  Once you've pinpointed the window you want to manipulate, here are
-  a few examples of things you might do with that window:
-    - doIgnore: this tells xmonad to completely ignore the window. It will
-      not be tiled or floated. Useful for things like launchers and
-      trays.
-    - doFloat: this tells xmonad to float the window rather than tiling
-      it. Handy for things that pop up, take some input, and then go away,
-      such as dialogs, calculators, and so on.
-    - doF (W.shift "Workspace"): this tells xmonad that when this program
-      is launched it should be sent to a specific workspace. Useful
-      for keeping specific tasks on specific workspaces. In the example
-      below I have specific workspaces for chat, development, and
-      editing images.
--}
+myKeys = myKeyBindings
 
 myManagementHooks :: [ManageHook]
 myManagementHooks = [
   resource =? "stalonetray" --> doIgnore
   , (className =? "chromium-browser") --> doF (W.shift "1:Web")
-  , (className =? "Empathy") --> doF (W.shift "3:Chat")
-  , (className =? "Pidgin") --> doF (W.shift "3:Chat")
-  , (className =? "mysql-workbench-bin") --> doF (W.shift "4:SQL")
   ]
-
-
-{-
-  Workspace navigation keybindings. This is probably the part of the
-  configuration I have spent the most time messing with, but understand
-  the least. Be very careful if messing with this section.
--}
-
-myKeys = myKeyBindings
-
-{-
-  Here we actually stitch together all the configuration settings
-  and run xmonad. We also spawn an instance of xmobar and pipe
-  content into it via the logHook..
--}
 
 main = do
   xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
