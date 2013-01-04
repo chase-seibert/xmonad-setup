@@ -30,11 +30,6 @@ if [ -f "/home/akshay/.dropbox-dist/dropboxd" ] ; then
     /home/akshay/.dropbox-dist/dropboxd &
 fi
 
-# Lock screen automatically
-if [ -f "$(pgrep xautolocker)" ] ; then
-    xautolocker -time 10 -locker slock &
-fi
-
 # On login, we unlock the ssh keychain so we're not prompted for 
 # passphrases later. We pipe /dev/null to ssh-add to make it realize 
 # it's not running in a terminal. Otherwise, it won't launch the prompt.
