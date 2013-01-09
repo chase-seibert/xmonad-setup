@@ -65,8 +65,8 @@ myVisibleWSRight = ")"
 myUrgentWSLeft  = "{"         -- wrap urgent workspace with these
 myUrgentWSRight = "}"
 
-myWorkspaces = ["1:Web",  "2:Dev", "3:Prod", "4",  "5", "6", "7",  "8", "9", "0"]
-startupWorkspace = "2:Dev"  -- which workspace do you want to be on after launch?
+myWorkspaces = ["1:Web",  "2:Dev", "3:Prod", "4",  "5", "6", "7",  "8", "9:Tunes"]
+startupWorkspace = "1:Dev"  -- which workspace do you want to be on after launch?
 
 -- Define group of default layouts used on most screens, in the
 -- order they will appear.
@@ -84,6 +84,7 @@ defaultLayouts = smartBorders(avoidStruts(
 myKeyBindings =
   [
     ("M-b", sendMessage ToggleStruts)
+    , ("M-c", spawn "chromium-browser")
     , ("M-l", spawn "xscreensaver-command -lock")
     , ("M-u", focusUrgent)
     , ("M-<F3>", goToSelected defaultGSConfig)
@@ -99,6 +100,7 @@ myManagementHooks :: [ManageHook]
 myManagementHooks = [
   resource =? "stalonetray" --> doIgnore
   , (className =? "chromium-browser") --> doF (W.shift "1:Web")
+  , (className =? "spotify") --> doF (W.shift "9:Tunes")
   ]
 
 main = do
