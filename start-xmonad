@@ -12,9 +12,6 @@ xmodmap ~/.xmodmaprc
 # Background
 feh --no-fehbg --bg-tile ~/.xmonad/images/linen.png
 
-# No screensaver
-xset s off
-
 # Status tray
 stalonetray \
   --icon-gravity E \

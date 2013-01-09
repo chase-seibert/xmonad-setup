@@ -84,7 +84,7 @@ defaultLayouts = smartBorders(avoidStruts(
 myKeyBindings =
   [
     ("M-b", sendMessage ToggleStruts)
-    , ("M-l", spawn "slock")
+    , ("M-l", spawn "xscreensaver-command -lock")
     , ("M-u", focusUrgent)
     , ("M-<F3>", goToSelected defaultGSConfig)
     , ("M-<F8>", spawn "volti-remote -m")
