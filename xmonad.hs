@@ -87,7 +87,7 @@ myKeyBindings =
     , ("<XF86AudioMute>", spawn "volti-remote -m")
     , ("<XF86AudioLowerVolume>", spawn "volti-remote -d")
     , ("<XF86AudioRaiseVolume>", spawn "volti-remote -i")
-    , ("<Print>", spawn "scrot -s -e 'mv $f ~/Pictures/'")
+    , ("<Print>", spawn "sleep 2; scrot -s -e 'mv $f ~/Pictures/'")
     , ("C-<Space>", spawn "exe=`dmenu_path | dmenu -fn '-misc-fixed-bold-r-normal-*-18-*-*-*-*-*-*-*'` && exec $exe")
     , ("C-M-<Right>", nextWS)
     , ("C-M-<Left>", prevWS)
