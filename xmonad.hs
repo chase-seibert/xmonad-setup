@@ -17,6 +17,7 @@
 import Data.Ratio ((%))
 
 import XMonad
+import XMonad.Actions.CycleWS
 import XMonad.Actions.GridSelect
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -44,7 +45,6 @@ myFocusedBorderColor = "#ff0000"      -- color of focused border
 myNormalBorderColor  = "#cccccc"      -- color of inactive border
 myBorderWidth        = 1              -- width of border around windows
 myTerminal           = "gnome-terminal"   -- which terminal software to use
-myIMRosterTitle      = "Contact List" -- title of roster on IM workspace
 myLayouts            = defaultLayouts
 
 
@@ -65,8 +65,8 @@ myVisibleWSRight = ")"
 myUrgentWSLeft  = "{"         -- wrap urgent workspace with these
 myUrgentWSRight = "}"
 
-myWorkspaces = ["1:Web",  "2:Dev", "3:Prod", "4",  "5", "6", "7",  "8", "9:Tunes"]
-startupWorkspace = "1:Dev"  -- which workspace do you want to be on after launch?
+myWorkspaces = ["1:Web",  "2:Chat", "3:Dev", "4:Prod",  "5", "6", "7",  "8", "9:Tunes"]
+startupWorkspace = "1:Web"  -- which workspace do you want to be on after launch?
 
 -- Define group of default layouts used on most screens, in the
 -- order they will appear.
@@ -76,31 +76,28 @@ startupWorkspace = "1:Dev"  -- which workspace do you want to be on after launch
 -- space for the status bar at the top of the screen.
 defaultLayouts = smartBorders(avoidStruts(
   ResizableTall 1 (3/100) (1/2) []
-  ||| Mirror (ResizableTall 1 (3/100) (1/2) [])
   ||| noBorders Full
   ||| Grid
   ||| ThreeColMid 1 (3/100) (3/4)))
 
 myKeyBindings =
   [
-    ("M-b", sendMessage ToggleStruts)
-    , ("M-c", spawn "chromium-browser")
-    , ("M-l", spawn "xscreensaver-command -lock")
-    , ("M-u", focusUrgent)
-    , ("M-<F3>", goToSelected defaultGSConfig)
-    , ("M-<F8>", spawn "volti-remote -m")
-    , ("M-<F9>", spawn "volti-remote -d")
-    , ("M-<F10>", spawn "volti-remote -i")
-    , ("M-<F11>", spawn "scrot")
+    ("M-c", spawn "google-chrome")
+    , ("M-l", spawn "gnome-screensaver-command -l")
+    , ("<XF86AudioMute>", spawn "volti-remote -m")
+    , ("<XF86AudioLowerVolume>", spawn "volti-remote -d")
+    , ("<XF86AudioRaiseVolume>", spawn "volti-remote -i")
+    , ("<Print>", spawn "scrot -s -e 'mv $f ~/Pictures/'")
     , ("C-<Space>", spawn "exe=`dmenu_path | dmenu -fn '-misc-fixed-bold-r-normal-*-18-*-*-*-*-*-*-*'` && exec $exe")
+    , ("C-M-<Right>", nextWS)
+    , ("C-M-<Left>", prevWS)
   ]
 myKeys = myKeyBindings
 
 myManagementHooks :: [ManageHook]
 myManagementHooks = [
-  resource =? "stalonetray" --> doIgnore
-  , (className =? "chromium-browser") --> doF (W.shift "1:Web")
-  , (className =? "spotify") --> doF (W.shift "9:Tunes")
+  (className =? "Google-chrome") --> doF (W.shift "1:Web")
+  , (className =? "Spotify") --> doF (W.shift "9:Tunes")
   ]
 
 main = do

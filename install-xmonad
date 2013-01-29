@@ -18,9 +18,18 @@
 # Author: David Brewer
 
 echo "Installing required packages..."
-sudo apt-get install xmonad libghc-xmonad-dev libghc-xmonad-contrib-dev xmobar feh stalonetray moreutils ssh-askpass-gnome suckless-tools xscreensaver xscreensaver-data-extra
+sudo apt-get install xmonad libghc-xmonad-dev libghc-xmonad-contrib-dev
+xmobar feh moreutils ssh-askpass-gnome suckless-tools trayer volti
+parcellite
 
 echo "Creating xmonad xsession configuration..."
 sudo mv /usr/share/xsessions/xmonad.desktop /usr/share/xsessions/xmonad.desktop.original
 sudo cp ~/.xmonad/xmonad.desktop /usr/share/xsessions
 sudo cp ~/.xmonad/images/custom_xmonad_badge.png /usr/share/unity-greeter
+
+echo "Linking GTK2 config..."
+if [[ -f ~/.gtkrc-2.0 ]]
+then
+    mv ~/.gtkrc-2.0 ~/.gtkrc-2.0.bak
+fi
+ln -s ~/.xmonad/gtkrc-2.0 ~/.gtkrc-2.0
