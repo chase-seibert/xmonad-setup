@@ -1,9 +1,9 @@
 #!/bin/bash
-# 
+#
 # xmonad "startup hook" script. This gets run after xmonad is initialized,
-# via the startupHook facility provided by xmonad. It's useful for 
+# via the startupHook facility provided by xmonad. It's useful for
 # running any programs which you want to use within xmonad but
-# which don't need to be initialized before xmonad is running. 
+# which don't need to be initialized before xmonad is running.
 
 # Network manager, so we don't have to configure wifi at the command line.
 if [ -z "$(pgrep nm-applet)" ] ; then
@@ -26,8 +26,12 @@ if [ -z "$(pgrep parcellite)" ] ; then
 fi
 
 # Dropbox
-if [ -x "/home/akshay/.dropbox-dist/dropboxd" ] ; then
-    /home/akshay/.dropbox-dist/dropboxd &
+if [ -x "/var/lib/dropbox/.dropbox-dist/dropboxd" ] ; then
+    /var/lib/dropbox/.dropbox-dist/dropboxd
+fi
+
+if [ -x "/opt/HipChat/bin/HipChat" ] ; then
+    /opt/HipChat/bin/HipChat
 fi
 
 # Screensaver
@@ -35,8 +39,8 @@ if [ -z "$(pgrep gnome-screensaver)" ] ; then
     gnome-screensaver &
 fi
 
-# On login, we unlock the ssh keychain so we're not prompted for 
-# passphrases later. We pipe /dev/null to ssh-add to make it realize 
+# On login, we unlock the ssh keychain so we're not prompted for
+# passphrases later. We pipe /dev/null to ssh-add to make it realize
 # it's not running in a terminal. Otherwise, it won't launch the prompt.
 
 export SSH_ASKPASS="/usr/bin/ssh-askpass"

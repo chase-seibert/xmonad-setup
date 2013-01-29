@@ -65,8 +65,8 @@ myVisibleWSRight = ")"
 myUrgentWSLeft  = "{"         -- wrap urgent workspace with these
 myUrgentWSRight = "}"
 
-myWorkspaces = ["1:Web",  "2:Chat", "3:Dev", "4:Prod",  "5", "6", "7",  "8", "9:Tunes"]
-startupWorkspace = "1:Web"  -- which workspace do you want to be on after launch?
+myWorkspaces = ["1",  "2", "3", "4",  "5", "6", "7",  "8", "9"]
+startupWorkspace = "1"  -- which workspace do you want to be on after launch?
 
 -- Define group of default layouts used on most screens, in the
 -- order they will appear.
@@ -82,8 +82,7 @@ defaultLayouts = smartBorders(avoidStruts(
 
 myKeyBindings =
   [
-    ("M-c", spawn "google-chrome")
-    , ("M-l", spawn "gnome-screensaver-command -l")
+    ("M-l", spawn "gnome-screensaver-command -l")
     , ("<XF86AudioMute>", spawn "volti-remote -m")
     , ("<XF86AudioLowerVolume>", spawn "volti-remote -d")
     , ("<XF86AudioRaiseVolume>", spawn "volti-remote -i")
@@ -96,8 +95,7 @@ myKeys = myKeyBindings
 
 myManagementHooks :: [ManageHook]
 myManagementHooks = [
-  (className =? "Google-chrome") --> doF (W.shift "1:Web")
-  , (className =? "Spotify") --> doF (W.shift "9:Tunes")
+  (className =? "Do") --> doIgnore
   ]
 
 main = do
